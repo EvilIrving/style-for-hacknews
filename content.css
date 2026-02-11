@@ -1,0 +1,429 @@
+/* ==========================================================================
+   Style for Hacker News - Enhanced Readability
+   A Chrome extension to improve HN's typography, spacing, and visual comfort.
+   ========================================================================== */
+
+/* === Global Base Styles === */
+
+body {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  color: #666666 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+td {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px !important;
+  color: #666666 !important;
+}
+
+/* === Main Container === */
+
+#hnmain {
+  min-width: 880px !important;
+}
+
+/* === Navigation Bar (.pagetop) === */
+
+.pagetop {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  color: #222222 !important;
+  line-height: normal !important;
+}
+
+.pagetop a:visited {
+  color: #000000 !important;
+}
+
+.topsel a:link,
+.topsel a:visited {
+  color: #ffffff !important;
+}
+
+.hnname {
+  margin-left: 2px !important;
+  margin-right: 8px !important;
+}
+
+/* === Post List - Titles === */
+
+.title {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  color: #666666 !important;
+}
+
+.titleline > a {
+  font-weight: 500 !important;
+  color: #1a1a1a !important;
+}
+
+.titleline > a:visited {
+  color: #999999 !important;
+}
+
+/* Source site label */
+.sitebit.comhead,
+.sitestr {
+  font-size: 13px !important;
+}
+
+/* === Post List - Metadata (.subtext) === */
+
+.subtext {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
+  color: #888888 !important;
+}
+
+.subtext td {
+  font-size: 13px !important;
+  padding-top: 2px !important;
+}
+
+.subtext a:link,
+.subtext a:visited {
+  color: #888888 !important;
+}
+
+.subtext a:hover {
+  color: #ff6600 !important;
+  text-decoration: underline !important;
+}
+
+/* Score emphasis */
+.subtext .score {
+  color: #777777 !important;
+  font-weight: 500 !important;
+}
+
+/* === Light Card Separator for Posts === */
+
+table.itemlist {
+  border-collapse: collapse !important;
+}
+
+tr.athing td {
+  padding-top: 10px !important;
+  border-top: 1px solid #e8e8e8 !important;
+}
+
+/* First post - no top border (header already provides separation) */
+tr.athing:first-child td {
+  border-top: none !important;
+}
+
+/* Post Spacing (spacer rows) */
+tr.spacer {
+  height: 16px !important;
+}
+
+/* === Rank Numbers === */
+
+.rank {
+  font-size: 15px !important;
+  color: #999999 !important;
+}
+
+/* === Vote Arrows === */
+
+.votearrow {
+  width: 12px !important;
+  height: 12px !important;
+  background-size: 12px !important;
+  margin: 4px 3px 6px !important;
+}
+
+/* === Links === */
+
+a:link {
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+}
+
+a:visited {
+  color: #888888 !important;
+  text-decoration: none !important;
+}
+
+/* === Comment System === */
+
+.comment {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  max-width: 1215px;
+}
+
+.comment a:link,
+.comment a:visited {
+  text-decoration: underline !important;
+}
+
+.comhead {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
+  color: #888888 !important;
+}
+
+.comhead a:link,
+.comhead a:visited {
+  color: #888888 !important;
+}
+
+.comhead a:hover {
+  color: #ff6600 !important;
+  text-decoration: underline !important;
+}
+
+/* Comment paragraph spacing */
+.default p {
+  margin-top: 12px !important;
+  margin-bottom: 0px !important;
+}
+
+/* Comment text color classes - preserve hierarchy */
+.c00, .c00 a:link { color: #1a1a1a !important; }
+.c5a, .c5a a:link, .c5a a:visited { color: #5a5a5a !important; }
+.c73, .c73 a:link, .c73 a:visited { color: #737373 !important; }
+.c82, .c82 a:link, .c82 a:visited { color: #828282 !important; }
+.c88, .c88 a:link, .c88 a:visited { color: #888888 !important; }
+.c9c, .c9c a:link, .c9c a:visited { color: #9c9c9c !important; }
+.cae, .cae a:link, .cae a:visited { color: #aeaeae !important; }
+.cbe, .cbe a:link, .cbe a:visited { color: #bebebe !important; }
+.cce, .cce a:link, .cce a:visited { color: #cecece !important; }
+.cdd, .cdd a:link, .cdd a:visited { color: #dddddd !important; }
+
+/* Code blocks */
+pre {
+  overflow: auto !important;
+  padding: 8px 12px !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  background: #f5f5f5 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* === Default / Admin Classes === */
+
+.default {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px !important;
+  color: #666666 !important;
+}
+
+.admin {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
+  color: #000000 !important;
+}
+
+.admin td {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
+  color: #000000 !important;
+}
+
+/* === Footer === */
+
+.yclinks {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  color: #888888 !important;
+}
+
+.hnmore a:link,
+.hnmore a:visited {
+  color: #888888 !important;
+}
+
+/* === Form Elements === */
+
+input {
+  font-family: 'LXGWZhenKaiGB-Regular', monospace !important;
+  font-size: 14px !important;
+}
+
+input[type='submit'] {
+  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+textarea {
+  font-family: 'LXGWZhenKaiGB-Regular', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* === "More" link at bottom of pages === */
+
+a.morelink {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+/* === Mobile Device Overrides === */
+
+@media only screen and (min-width: 300px) and (max-width: 750px) {
+
+  #hnmain {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    font-size: 16px !important;
+  }
+
+  td {
+    height: inherit !important;
+    font-size: 16px !important;
+  }
+
+  .title {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+  }
+
+  .subtext {
+    font-size: 14px !important;
+  }
+
+  .subtext td {
+    font-size: 14px !important;
+  }
+
+  .comment {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  .comhead {
+    font-size: 13px !important;
+  }
+
+  span.pagetop {
+    display: block !important;
+    margin: 3px 5px !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+  }
+
+  span.pagetop b {
+    display: block !important;
+    font-size: 16px !important;
+  }
+
+  .votearrow {
+    transform: scale(1.5, 1.5) !important;
+    margin-right: 8px !important;
+  }
+
+  .votearrow.rotate180 {
+    -webkit-transform: rotate(180deg) scale(1.5, 1.5) !important;
+    transform: rotate(180deg) scale(1.5, 1.5) !important;
+  }
+
+  .votelinks {
+    min-width: 20px !important;
+  }
+
+  .votelinks a {
+    display: block !important;
+    margin-bottom: 10px !important;
+  }
+
+  input[type='text'],
+  input[type='number'],
+  textarea {
+    font-size: 16px !important;
+    width: 90% !important;
+  }
+
+  tr.spacer {
+    height: 16px !important;
+  }
+
+  .rank {
+    font-size: 16px !important;
+  }
+
+  pre {
+    font-size: 13px !important;
+  }
+
+  /* Comment indentation - preserve mobile scaling */
+  table.comment-tree .comment a {
+    display: inline-block !important;
+    max-width: 220px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    vertical-align: top !important;
+  }
+
+  img[src='s.gif'][width='40']  { width: 12px !important; }
+  img[src='s.gif'][width='80']  { width: 24px !important; }
+  img[src='s.gif'][width='120'] { width: 36px !important; }
+  img[src='s.gif'][width='160'] { width: 48px !important; }
+  img[src='s.gif'][width='200'] { width: 60px !important; }
+  img[src='s.gif'][width='240'] { width: 72px !important; }
+  img[src='s.gif'][width='280'] { width: 84px !important; }
+  img[src='s.gif'][width='320'] { width: 96px !important; }
+  img[src='s.gif'][width='360'] { width: 108px !important; }
+  img[src='s.gif'][width='400'] { width: 120px !important; }
+  img[src='s.gif'][width='440'] { width: 132px !important; }
+  img[src='s.gif'][width='480'] { width: 144px !important; }
+  img[src='s.gif'][width='520'] { width: 156px !important; }
+  img[src='s.gif'][width='560'] { width: 168px !important; }
+  img[src='s.gif'][width='600'] { width: 180px !important; }
+  img[src='s.gif'][width='640'] { width: 192px !important; }
+  img[src='s.gif'][width='680'] { width: 204px !important; }
+  img[src='s.gif'][width='720'] { width: 216px !important; }
+  img[src='s.gif'][width='760'] { width: 228px !important; }
+  img[src='s.gif'][width='800'] { width: 240px !important; }
+  img[src='s.gif'][width='840'] { width: 252px !important; }
+}
+
+/* === Comment max-width responsive overrides === */
+
+@media only screen and (min-width: 300px) and (max-width: 389px) {
+  .comment { max-width: 270px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 390px) and (max-width: 509px) {
+  .comment { max-width: 350px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 510px) and (max-width: 599px) {
+  .comment { max-width: 460px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 600px) and (max-width: 689px) {
+  .comment { max-width: 540px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 690px) and (max-width: 809px) {
+  .comment { max-width: 620px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 810px) and (max-width: 899px) {
+  .comment { max-width: 730px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 900px) and (max-width: 1079px) {
+  .comment { max-width: 810px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 1080px) and (max-width: 1169px) {
+  .comment { max-width: 970px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 1170px) and (max-width: 1259px) {
+  .comment { max-width: 1050px !important; overflow: hidden !important; }
+}
+@media only screen and (min-width: 1260px) and (max-width: 1349px) {
+  .comment { max-width: 1130px !important; overflow: hidden !important; }
+}
