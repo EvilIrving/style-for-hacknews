@@ -1,56 +1,40 @@
-# Hacker News Subtext Toggle 扩展
+# Style for Hacker News
 
-## 功能说明
+A Chrome extension that improves Hacker News readability with refined typography, optimized spacing, and a cleaner layout. Available in English, 中文, 日本語, and 한국어.
 
-这个Chrome扩展为Hacker News网站添加了一个实用的功能：允许用户控制页面上.subtext元素（文章元信息）的显示/隐藏。
+[中文版本](README.zh_CN.md)
 
-## 主要特性
+## Features
 
-- **默认隐藏**：页面加载时自动隐藏所有.subtext信息
-- **快速切换**：右下角提供醒目的切换按钮
-- **即时生效**：点击按钮立即切换显示状态
-- **动态兼容**：自动处理页面动态加载的内容
-- **无需存储**：配置不会持久化保存，刷新后恢复默认状态
+- **8 variable fonts** — Cycle through MapleMono CN, LXGW ZhenKai, Google Sans Flex, Commit Mono, Geist, Geist Mono, MiSans, and Mona Sans with one click
+- **Subtext toggle** — Show or hide article metadata (points, comment counts, timestamps) to reduce visual noise
+- **Comment thread indicators** — Visual depth markers make nested discussions instantly readable
+- **Persistent preferences** — Font choice and visibility settings saved locally and restored across visits
+- **Four languages** — UI labels adapt to English, Simplified Chinese, Japanese, or Korean
 
-## 使用方法
+## Usage
 
-1. 安装扩展后访问Hacker News网站
-2. 页面加载完成后，右下角会出现一个橙色的切换按钮
-3. 点击按钮可在"显示信息"/"隐藏信息"之间切换
-4. 刷新页面将恢复默认的隐藏状态
+1. Visit [news.ycombinator.com](https://news.ycombinator.com)
+2. Use the floating control panel in the bottom-right corner to switch fonts, toggle metadata, or change the UI language
 
-## 技术实现
+## Installation
 
-### 核心文件
+1. Open `chrome://extensions/` in Chrome
+2. Enable **Developer mode**
+3. Click **Load unpacked** and select this project folder
+4. Visit Hacker News to test
 
-- `content.js` - 主要功能逻辑，负责创建控制面板和处理切换逻辑
-- `control-panel.css` - 控制面板的样式定义
-- `manifest.json` - Chrome扩展配置文件
+## Development
 
-### 工作原理
+The extension runs as a content script on `news.ycombinator.com`. Key files:
 
-1. 扩展在页面加载时注入脚本
-2. 自动查找并隐藏所有带有.subtext类的元素
-3. 创建浮动控制面板供用户交互
-4. 使用MutationObserver监听DOM变化，确保动态加载的内容也得到正确处理
+| File | Purpose |
+|---|---|
+| `content.js` | Control panel, toggle logic, font switching, i18n |
+| `content.css` | Typography overrides, comment threading, layout improvements |
+| `control-panel.css` | Floating panel styles |
+| `_locales/` | UI strings for en, zh_CN, ja, ko |
 
-### 样式特点
+## License
 
-- 采用Hacker News主题色彩（橙色系）
-- 响应式设计，适配各种屏幕尺寸
-- 平滑的动画过渡效果
-- 良好的可访问性支持
-
-## 安装说明
-
-1. 在Chrome浏览器中打开 `chrome://extensions/`
-2. 启用"开发者模式"
-3. 点击"加载已解压的扩展程序"
-4. 选择此项目文件夹
-5. 访问Hacker News网站测试功能
-
-## 注意事项
-
-- 此扩展仅在Hacker News网站（news.ycombinator.com）生效
-- 配置不会跨会话保存，每次访问都是默认隐藏状态
-- 不会影响网站的其他功能和用户体验
+MIT
