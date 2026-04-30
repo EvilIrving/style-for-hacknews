@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "Hacker News 样式优化"
+  },
+  "extensionDescription": {
+    "message": "通过更好的字体、间距和布局提升 Hacker News 的可读性与视觉舒适度。"
+  },
+  "showInfoButton": {
+    "message": "显示信息"
+  },
+  "hideInfoButton": {
+    "message": "隐藏信息"
+  },
+  "toggleInfoTitle": {
+    "message": "切换文章元信息显示状态"
+  },
+  "toggleFontTitle": {
+    "message": "切换页面字体"
+  },
+  "fontButtonLabel": {
+    "message": "字体：$FONT$",
+    "placeholders": {
+      "font": {
+        "content": "$1"
+      }
+    }
+  },
+  "languageButtonTitle": {
+    "message": "切换语言"
+  }
+}

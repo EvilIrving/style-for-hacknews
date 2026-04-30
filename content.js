@@ -87,10 +87,95 @@ function addFontFace() {
 // 在页面加载前注入字体
 injectFonts();
 
+const i18nFallbacks = {
+  showInfoButton: 'Show info',
+  hideInfoButton: 'Hide info',
+  toggleInfoTitle: 'Toggle story metadata visibility',
+  toggleFontTitle: 'Switch page font',
+  fontButtonLabel: 'Font: $1',
+  languageButtonTitle: 'Switch language'
+};
+
+const languageMessages = {
+  en: {
+    showInfoButton: 'Show info',
+    hideInfoButton: 'Hide info',
+    toggleInfoTitle: 'Toggle story metadata visibility',
+    toggleFontTitle: 'Switch page font',
+    fontButtonLabel: 'Font: $1',
+    languageButtonTitle: 'Switch language'
+  },
+  zh: {
+    showInfoButton: '显示信息',
+    hideInfoButton: '隐藏信息',
+    toggleInfoTitle: '切换文章元信息显示状态',
+    toggleFontTitle: '切换页面字体',
+    fontButtonLabel: '字体：$1',
+    languageButtonTitle: '切换语言'
+  },
+  ja: {
+    showInfoButton: '情報を表示',
+    hideInfoButton: '情報を隠す',
+    toggleInfoTitle: '記事メタ情報の表示を切り替え',
+    toggleFontTitle: 'ページのフォントを切り替え',
+    fontButtonLabel: 'フォント：$1',
+    languageButtonTitle: '言語を切り替え'
+  },
+  ko: {
+    showInfoButton: '정보 표시',
+    hideInfoButton: '정보 숨기기',
+    toggleInfoTitle: '기사 메타 정보 표시 전환',
+    toggleFontTitle: '페이지 글꼴 전환',
+    fontButtonLabel: '글꼴: $1',
+    languageButtonTitle: '언어 전환'
+  }
+};
+
+const supportedLanguages = [
+  { id: 'en', label: 'EN' },
+  { id: 'zh', label: '中' },
+  { id: 'ja', label: '日' },
+  { id: 'ko', label: '한' }
+];
+
+function message(name, substitutions) {
+  const localized = chrome.i18n?.getMessage(name, substitutions);
+  if (localized) {
+    return localized;
+  }
+
+  const fallback = i18nFallbacks[name] || name;
+  return formatMessage(fallback, substitutions);
+}
+
+function formatMessage(template, substitutions) {
+  const values = Array.isArray(substitutions) ? substitutions : [substitutions];
+  return values.reduce((text, value, index) => (
+    text.replace(`$${index + 1}`, value ?? '')
+  ), template);
+}
+
+function detectBrowserLanguage() {
+  const language = chrome.i18n?.getUILanguage?.() || navigator.language || 'en';
+  const normalized = language.toLowerCase();
+
+  if (normalized.startsWith('zh')) {
+    return 'zh';
+  }
+  if (normalized.startsWith('ja')) {
+    return 'ja';
+  }
+  if (normalized.startsWith('ko')) {
+    return 'ko';
+  }
+  return 'en';
+}
+
 class SubtextToggle {
   constructor() {
     this.storageKey = 'hnSubtextIsHidden';
     this.fontStorageKey = 'hnReaderFont';
+    this.languageStorageKey = 'hnLanguage';
     this.fonts = [
       {
         id: 'lxgw-zhengkai',
@@ -143,9 +228,11 @@ class SubtextToggle {
     ];
     this.isHidden = true; // 默认隐藏状态
     this.currentFontIndex = 0;
+    this.currentLanguage = detectBrowserLanguage();
     this.panel = null;
     this.button = null;
     this.fontButton = null;
+    this.languageButton = null;
     this.init();
   }
 
@@ -184,12 +271,15 @@ class SubtextToggle {
       }
       const fontResult = await chrome.storage.local.get(this.fontStorageKey);
       this.setFontIndex(fontResult[this.fontStorageKey]);
+      const languageResult = await chrome.storage.local.get(this.languageStorageKey);
+      this.setLanguage(languageResult[this.languageStorageKey]);
     } catch (error) {
       const savedState = window.localStorage.getItem(this.storageKey);
       if (savedState !== null) {
         this.isHidden = savedState === 'true';
       }
       this.setFontIndex(window.localStorage.getItem(this.fontStorageKey));
+      this.setLanguage(window.localStorage.getItem(this.languageStorageKey));
     }
   }
 
@@ -218,6 +308,17 @@ class SubtextToggle {
   }
 
   /**
+   * 保存当前语言
+   */
+  async saveLanguageState() {
+    try {
+      await chrome.storage.local.set({ [this.languageStorageKey]: this.currentLanguage });
+    } catch (error) {
+      window.localStorage.setItem(this.languageStorageKey, this.currentLanguage);
+    }
+  }
+
+  /**
    * 创建浮动控制面板
    */
   createControlPanel() {
@@ -228,22 +329,29 @@ class SubtextToggle {
     // 创建切换按钮
     this.button = document.createElement('button');
     this.button.id = 'hn-subtext-toggle-button';
-    this.button.textContent = this.isHidden ? '显示信息' : '隐藏信息';
-    this.button.title = '点击切换信息显示状态';
+    this.button.title = this.getMessage('toggleInfoTitle');
+    this.updateButtonText();
 
     // 创建字体切换按钮
     this.fontButton = document.createElement('button');
     this.fontButton.id = 'hn-font-toggle-button';
-    this.fontButton.title = '点击切换页面字体';
+    this.fontButton.title = this.getMessage('toggleFontTitle');
     this.updateFontButtonText();
+
+    // 创建语言切换按钮
+    this.languageButton = document.createElement('button');
+    this.languageButton.id = 'hn-language-toggle-button';
+    this.updateLanguageButtonText();
     
     // 添加事件监听
     this.button.addEventListener('click', () => this.toggleState());
     this.fontButton.addEventListener('click', () => this.toggleFont());
+    this.languageButton.addEventListener('click', () => this.toggleLanguage());
     
     // 组装面板
     this.panel.appendChild(this.button);
     this.panel.appendChild(this.fontButton);
+    this.panel.appendChild(this.languageButton);
     document.body.appendChild(this.panel);
   }
 
@@ -254,6 +362,23 @@ class SubtextToggle {
   setFontIndex(fontId) {
     const savedIndex = this.fonts.findIndex((font) => font.id === fontId);
     this.currentFontIndex = savedIndex >= 0 ? savedIndex : 0;
+  }
+
+  /**
+   * 根据保存值设置语言
+   * @param {string} languageId - 语言标识
+   */
+  setLanguage(languageId) {
+    const isSupported = supportedLanguages.some((language) => language.id === languageId);
+    this.currentLanguage = isSupported ? languageId : detectBrowserLanguage();
+  }
+
+  /**
+   * 读取当前界面语言文案
+   */
+  getMessage(name, substitutions) {
+    const messages = languageMessages[this.currentLanguage] || languageMessages.en;
+    return formatMessage(messages[name] || i18nFallbacks[name] || message(name), substitutions);
   }
 
   /**
@@ -274,6 +399,17 @@ class SubtextToggle {
     this.applyFont();
     this.updateFontButtonText();
     this.saveFontState();
+  }
+
+  /**
+   * 切换界面语言
+   */
+  toggleLanguage() {
+    const currentIndex = supportedLanguages.findIndex((language) => language.id === this.currentLanguage);
+    const nextIndex = (currentIndex + 1) % supportedLanguages.length;
+    this.currentLanguage = supportedLanguages[nextIndex].id;
+    this.updateLocalizedText();
+    this.saveLanguageState();
   }
 
   /**
@@ -308,7 +444,7 @@ class SubtextToggle {
    * 更新按钮文本
    */
   updateButtonText() {
-    this.button.textContent = this.isHidden ? '显示信息' : '隐藏信息';
+    this.button.textContent = this.getMessage(this.isHidden ? 'showInfoButton' : 'hideInfoButton');
   }
 
   /**
@@ -316,7 +452,28 @@ class SubtextToggle {
    */
   updateFontButtonText() {
     const currentFont = this.fonts[this.currentFontIndex];
-    this.fontButton.textContent = `字体：${currentFont.label}`;
+    this.fontButton.textContent = this.getMessage('fontButtonLabel', [currentFont.label]);
+  }
+
+  /**
+   * 更新语言按钮文本
+   */
+  updateLanguageButtonText() {
+    const currentLanguage = supportedLanguages.find((language) => language.id === this.currentLanguage) || supportedLanguages[0];
+    this.languageButton.textContent = currentLanguage.label;
+    this.languageButton.title = this.getMessage('languageButtonTitle');
+    this.languageButton.setAttribute('aria-label', this.getMessage('languageButtonTitle'));
+  }
+
+  /**
+   * 更新所有本地化文本
+   */
+  updateLocalizedText() {
+    this.button.title = this.getMessage('toggleInfoTitle');
+    this.fontButton.title = this.getMessage('toggleFontTitle');
+    this.updateButtonText();
+    this.updateFontButtonText();
+    this.updateLanguageButtonText();
   }
 
   /**

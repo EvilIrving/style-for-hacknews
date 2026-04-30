@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "Style for Hacker News"
+  },
+  "extensionDescription": {
+    "message": "読みやすいフォント、余白、レイアウトで Hacker News の可読性と見やすさを向上させます。"
+  },
+  "showInfoButton": {
+    "message": "情報を表示"
+  },
+  "hideInfoButton": {
+    "message": "情報を隠す"
+  },
+  "toggleInfoTitle": {
+    "message": "記事メタ情報の表示を切り替え"
+  },
+  "toggleFontTitle": {
+    "message": "ページのフォントを切り替え"
+  },
+  "fontButtonLabel": {
+    "message": "フォント：$FONT$",
+    "placeholders": {
+      "font": {
+        "content": "$1"
+      }
+    }
+  },
+  "languageButtonTitle": {
+    "message": "言語を切り替え"
+  }
+}

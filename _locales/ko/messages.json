@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "Style for Hacker News"
+  },
+  "extensionDescription": {
+    "message": "더 나은 글꼴, 간격, 레이아웃으로 Hacker News의 가독성과 시각적 편안함을 높입니다."
+  },
+  "showInfoButton": {
+    "message": "정보 표시"
+  },
+  "hideInfoButton": {
+    "message": "정보 숨기기"
+  },
+  "toggleInfoTitle": {
+    "message": "기사 메타 정보 표시 전환"
+  },
+  "toggleFontTitle": {
+    "message": "페이지 글꼴 전환"
+  },
+  "fontButtonLabel": {
+    "message": "글꼴: $FONT$",
+    "placeholders": {
+      "font": {
+        "content": "$1"
+      }
+    }
+  },
+  "languageButtonTitle": {
+    "message": "언어 전환"
+  }
+}

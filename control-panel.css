@@ -16,7 +16,8 @@
 
 /* 切换按钮样式 */
 #hn-subtext-toggle-button,
-#hn-font-toggle-button {
+#hn-font-toggle-button,
+#hn-language-toggle-button {
   background: #ff6600;
   color: white;
   border: none;
@@ -32,9 +33,17 @@
   text-align: center;
 }
 
+#hn-language-toggle-button {
+  padding: 7px 10px;
+  font-size: 12px;
+  min-width: 38px;
+  border-radius: 16px;
+}
+
 /* 按钮悬停效果 */
 #hn-subtext-toggle-button:hover,
-#hn-font-toggle-button:hover {
+#hn-font-toggle-button:hover,
+#hn-language-toggle-button:hover {
   background: #e55a00;
   box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
   transform: translateY(-1px);
@@ -42,13 +51,15 @@
 
 /* 按钮焦点状态 */
 #hn-subtext-toggle-button:focus,
-#hn-font-toggle-button:focus {
+#hn-font-toggle-button:focus,
+#hn-language-toggle-button:focus {
   box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3), 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
 /* 按钮激活状态 */
 #hn-subtext-toggle-button:active,
-#hn-font-toggle-button:active {
+#hn-font-toggle-button:active,
+#hn-language-toggle-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(255, 102, 0, 0.3);
 }
@@ -67,6 +78,13 @@
     min-width: 100px;
     border-radius: 24px;
   }
+
+  #hn-language-toggle-button {
+    padding: 9px 11px;
+    font-size: 12px;
+    min-width: 40px;
+    border-radius: 18px;
+  }
 }
 
 /* 小屏幕设备 */
@@ -82,17 +100,25 @@
     font-size: 12px;
     min-width: 80px;
   }
+
+  #hn-language-toggle-button {
+    padding: 7px 9px;
+    font-size: 11px;
+    min-width: 34px;
+  }
 }
 
 /* 确保在Hacker News的深色主题下也能正常显示 */
 @media (prefers-color-scheme: dark) {
   #hn-subtext-toggle-button,
-  #hn-font-toggle-button {
+  #hn-font-toggle-button,
+  #hn-language-toggle-button {
     background: #ff8533;
   }
   
   #hn-subtext-toggle-button:hover,
-  #hn-font-toggle-button:hover {
+  #hn-font-toggle-button:hover,
+  #hn-language-toggle-button:hover {
     background: #ff6600;
   }
 }

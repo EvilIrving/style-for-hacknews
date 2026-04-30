@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "Style for Hacker News"
+  },
+  "extensionDescription": {
+    "message": "Improve readability and visual comfort of Hacker News with better typography, spacing, and layout."
+  },
+  "showInfoButton": {
+    "message": "Show info"
+  },
+  "hideInfoButton": {
+    "message": "Hide info"
+  },
+  "toggleInfoTitle": {
+    "message": "Toggle story metadata visibility"
+  },
+  "toggleFontTitle": {
+    "message": "Switch page font"
+  },
+  "fontButtonLabel": {
+    "message": "Font: $FONT$",
+    "placeholders": {
+      "font": {
+        "content": "$1"
+      }
+    }
+  },
+  "languageButtonTitle": {
+    "message": "Switch language"
+  }
+}
