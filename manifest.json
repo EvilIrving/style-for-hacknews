@@ -3,6 +3,7 @@
   "name": "Style for Hacker News",
   "version": "1.0.0",
   "description": "Improve readability and visual comfort of Hacker News with better typography, spacing, and layout.",
+  "permissions": ["storage"],
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",

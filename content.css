@@ -12,11 +12,11 @@
   --accent-dim: #e85d00;
   --rule-light: #e8e3db;
   --rule-subtle: #efece6;
-  --thread-depth-1: oklch(0.84 0.012 80);
-  --thread-depth-2: oklch(0.85 0.010 80);
-  --thread-depth-3: oklch(0.86 0.008 80);
-  --thread-depth-4: oklch(0.87 0.006 80);
-  --thread-depth-5: oklch(0.88 0.004 80);
+  --thread-depth-1: oklch(0.90 0.008 80);
+  --thread-depth-2: oklch(0.91 0.007 80);
+  --thread-depth-3: oklch(0.92 0.006 80);
+  --thread-depth-4: oklch(0.93 0.005 80);
+  --thread-depth-5: oklch(0.94 0.004 80);
 }
 
 /* === Global === */
@@ -182,34 +182,60 @@ a:visited {
   border-top: none !important;
 }
 
-/* Thread depth lines — left border on td.default, keyed to indent img width.
+/* Thread depth lines — standalone rounded rail, keyed to indent img width.
    tr.comtr contains a nested table; td.ind and td.default are descendants, not direct children. */
-.comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment {
-  border-left: 2px solid var(--thread-depth-1) !important;
-  padding-left: 14px !important;
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='200']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='240']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='280']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment {
+  position: relative;
+  padding-left: 16px !important;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='200']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='240']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='280']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment::before,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 4px;
+  min-height: 18px;
+  border-radius: 999px;
+  background: var(--thread-depth-rail);
+  box-shadow: -3px 3px 5px color-mix(in oklch, var(--thread-depth-rail) 20%, transparent);
+}
+
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment {
+  --thread-depth-rail: var(--thread-depth-1);
 }
 
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment {
-  border-left: 2px solid var(--thread-depth-2) !important;
-  padding-left: 14px !important;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  --thread-depth-rail: var(--thread-depth-2);
 }
 
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment {
-  border-left: 2px solid var(--thread-depth-3) !important;
-  padding-left: 14px !important;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  --thread-depth-rail: var(--thread-depth-3);
 }
 
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment {
-  border-left: 2px solid var(--thread-depth-4) !important;
-  padding-left: 14px !important;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  --thread-depth-rail: var(--thread-depth-4);
 }
 
 /* Depth 5+ — one shared color */
@@ -219,10 +245,7 @@ a:visited {
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment,
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment,
 .comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment {
-  border-left: 2px solid var(--thread-depth-5) !important;
-  padding-left: 14px !important;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  --thread-depth-rail: var(--thread-depth-5);
 }
 
 /* Comment body */
@@ -429,13 +452,20 @@ textarea {
     font-size: 13px !important;
   }
 
-  /* Thinner thread lines on mobile */
+  /* Compact standalone thread rails on mobile */
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment,
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment,
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment,
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment {
-    border-left-width: 1.5px !important;
-    padding-left: 10px !important;
+    padding-left: 12px !important;
+  }
+
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment::before {
+    width: 3px;
+    box-shadow: -2px 2px 4px color-mix(in oklch, var(--thread-depth-rail) 18%, transparent);
   }
 
   /* Deeper levels — hide thread lines on tight screens */
@@ -445,8 +475,16 @@ textarea {
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment,
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment,
   .comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment {
-    border-left: none !important;
     padding-left: 6px !important;
+  }
+
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='200']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='240']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='280']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment::before,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment::before {
+    content: none;
   }
 
   /* Reduced indent on mobile */

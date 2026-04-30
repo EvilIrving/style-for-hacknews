@@ -61,6 +61,7 @@ injectFonts();
 
 class SubtextToggle {
   constructor() {
+    this.storageKey = 'hnSubtextIsHidden';
     this.isHidden = true; // 默认隐藏状态
     this.panel = null;
     this.button = null;
@@ -76,7 +77,9 @@ class SubtextToggle {
     }
   }
 
-  setup() {
+  async setup() {
+    await this.loadState();
+
     // 初始隐藏所有.subtext元素
     this.toggleSubtextVisibility(this.isHidden);
     
@@ -85,6 +88,34 @@ class SubtextToggle {
     
     // 监听可能的动态内容加载
     this.observeDOMChanges();
+  }
+
+  /**
+   * 读取持久化的显示状态
+   */
+  async loadState() {
+    try {
+      const result = await chrome.storage.local.get(this.storageKey);
+      if (typeof result[this.storageKey] === 'boolean') {
+        this.isHidden = result[this.storageKey];
+      }
+    } catch (error) {
+      const savedState = window.localStorage.getItem(this.storageKey);
+      if (savedState !== null) {
+        this.isHidden = savedState === 'true';
+      }
+    }
+  }
+
+  /**
+   * 保存当前显示状态
+   */
+  async saveState() {
+    try {
+      await chrome.storage.local.set({ [this.storageKey]: this.isHidden });
+    } catch (error) {
+      window.localStorage.setItem(this.storageKey, String(this.isHidden));
+    }
   }
 
   /**
@@ -134,6 +165,7 @@ class SubtextToggle {
     this.isHidden = !this.isHidden;
     this.toggleSubtextVisibility(this.isHidden);
     this.updateButtonText();
+    this.saveState();
   }
 
   /**
