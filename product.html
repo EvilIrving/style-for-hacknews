@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style for Hacker News</title>
+<style>
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+:root {
+  --bg: #f6f6ef;
+  --text: #1c1a17;
+  --text-secondary: #4a4642;
+  --text-muted: #7a7570;
+  --text-faint: #a09890;
+  --accent: #ff6600;
+  --accent-dim: #e85d00;
+  --rule: #e8e3db;
+  --rule-subtle: #efece6;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.header {
+  width: 100%;
+  max-width: 720px;
+  padding: 72px 24px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+}
+
+.brand img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+}
+
+.brand span {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Tab navigation
+   ========================================================================== */
+.tabs {
+  display: flex;
+  gap: 36px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.tab {
+  padding: 0 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab:hover {
+  color: var(--text-secondary);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ==========================================================================
+   Main content
+   ========================================================================== */
+.main {
+  width: 100%;
+  max-width: 720px;
+  padding: 48px 24px 80px;
+  flex: 1;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+  animation: fade 0.18s ease-out;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.tab-panel h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+
+.tab-panel h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 36px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.tab-panel p {
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  max-width: 64ch;
+}
+
+.tab-panel a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.tab-panel a:hover {
+  color: var(--accent-dim);
+  text-decoration: underline;
+}
+
+.tab-panel ul,
+.tab-panel ol {
+  color: var(--text-secondary);
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.tab-panel li {
+  margin-bottom: 7px;
+  max-width: 64ch;
+}
+
+.tab-panel li:last-child {
+  margin-bottom: 0;
+}
+
+.tab-panel .rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 36px 0 32px;
+}
+
+.tab-panel .lead {
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+/* ==========================================================================
+   Feature list — two-column spec layout, not cards
+   ========================================================================== */
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px;
+  margin: 28px 0 36px;
+}
+
+.feature h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.feature p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Installation steps
+   ========================================================================== */
+.steps {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+}
+
+.steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.steps li::before {
+  content: counter(step);
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  margin-top: 1px;
+}
+
+.steps li div {
+  padding-top: 1px;
+}
+
+.steps li strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.steps li span {
+  color: var(--text-secondary);
+}
+
+.steps code {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 13px;
+  background: var(--rule-subtle);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Privacy statements
+   ========================================================================== */
+.privacy-item {
+  margin-bottom: 28px;
+}
+
+.privacy-item h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.privacy-item p {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+.faq-item {
+  margin-bottom: 24px;
+}
+
+.faq-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.faq-item p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  width: 100%;
+  max-width: 720px;
+  padding: 20px 24px 32px;
+  font-size: 12px;
+  color: var(--text-faint);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--rule);
+}
+
+.footer a {
+  color: var(--text-faint);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+@media (max-width: 600px) {
+  .header {
+    padding: 40px 20px 0;
+  }
+
+  .brand {
+    margin-bottom: 32px;
+  }
+
+  .tabs {
+    gap: 24px;
+  }
+
+  .main {
+    padding: 32px 20px 64px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .tab-panel h2 {
+    font-size: 20px;
+  }
+
+  .tab-panel .lead {
+    font-size: 15px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 20px 28px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="icons/icon-128.png" alt="" width="36" height="36">
+    <span>Style for Hacker News</span>
+  </div>
+  <nav class="tabs" role="tablist">
+    <a class="tab active" href="#home" role="tab" data-tab="home">首页</a>
+    <a class="tab" href="#privacy" role="tab" data-tab="privacy">隐私</a>
+    <a class="tab" href="#support" role="tab" data-tab="support">支持</a>
+  </nav>
+</header>
+
+<main class="main">
+
+  <!-- Home -->
+  <section class="tab-panel active" id="panel-home" role="tabpanel">
+    <p class="lead">让 Hacker News 的阅读体验回归内容本身。更好的字体排印、更清晰的层级、更舒适的留白。</p>
+
+    <div class="features">
+      <div class="feature">
+        <h4>舒适的正文排版</h4>
+        <p>合适的字号、行高与栏宽，为长时间阅读而调校。</p>
+      </div>
+      <div class="feature">
+        <h4>清晰的评论层级</h4>
+        <p>通过缩进线与微妙的色彩区分，父子回复关系一目了然。</p>
+      </div>
+      <div class="feature">
+        <h4>克制的视觉噪音</h4>
+        <p>每种颜色、每条分隔线都有存在的理由，没有多余的装饰。</p>
+      </div>
+      <div class="feature">
+        <h4>保持 HN 的本来面貌</h4>
+        <p>保留经典的橙色点缀与整体布局结构，熟悉感丝毫不减。</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h3>安装</h3>
+    <ol class="steps">
+      <li>
+        <div>
+          <strong>打开扩展管理页面</strong><br>
+          <span>在 Chrome 地址栏输入 <code>chrome://extensions/</code> 并回车。</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>启用开发者模式</strong><br>
+          <span>页面右上角的开关，点击打开。</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>加载扩展</strong><br>
+          <span>点击「加载已解压的扩展程序」，选择本扩展所在的文件夹。</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>访问 Hacker News</strong><br>
+          <span>打开 <a href="https://news.ycombinator.com" target="_blank" rel="noopener">news.ycombinator.com</a>，一切已经就绪。</span>
+        </div>
+      </li>
+    </ol>
+
+    <hr class="rule">
+
+    <h3>兼容性</h3>
+    <p>适用于 Chrome 及所有基于 Chromium 的浏览器（Edge、Arc、Brave 等）。仅对 news.ycombinator.com 生效，不会影响其他网站的浏览体验。</p>
+  </section>
+
+  <!-- Privacy -->
+  <section class="tab-panel" id="panel-privacy" role="tabpanel">
+    <p class="lead">此扩展不会收集、存储或传输任何用户数据。</p>
+
+    <div class="privacy-item">
+      <h3>数据收集</h3>
+      <p>零数据收集。没有遥测、没有分析工具、没有第三方服务。扩展程序完全在本地运行。</p>
+    </div>
+
+    <div class="privacy-item">
+      <h3>权限说明</h3>
+      <p>扩展仅申请了针对 <code>news.ycombinator.com</code> 的内容脚本注入权限，用于注入样式与字体文件。不会访问其他网站，不会读取浏览历史、书签或 Cookie。</p>
+    </div>
+
+    <div class="privacy-item">
+      <h3>网络请求</h3>
+      <p>扩展不会发起任何网络请求。字体文件已内置在扩展包中，无需从外部 CDN 加载。</p>
+    </div>
+
+    <div class="privacy-item">
+      <h3>用户偏好</h3>
+      <p>扩展不会跨会话持久化任何设置。每次打开 Hacker News 页面时，扩展以默认状态运行。</p>
+    </div>
+  </section>
+
+  <!-- Support -->
+  <section class="tab-panel" id="panel-support" role="tabpanel">
+    <p class="lead">遇到问题或有改进建议？以下途径可以找到我们。</p>
+
+    <h3>联系方式</h3>
+    <ul>
+      <li>发送邮件至 <a href="mailto:cain@example.com">cain@example.com</a></li>
+      <li>在 Chrome Web Store 扩展页面提交用户反馈</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h3>常见问题</h3>
+    <div class="faq-item">
+      <h4>安装后没有生效？</h4>
+      <p>刷新已打开的 Hacker News 页面，或重新打开一个新标签页访问。确保扩展已在 chrome://extensions 中启用。</p>
+    </div>
+    <div class="faq-item">
+      <h4>字体显示异常？</h4>
+      <p>扩展内置了所需的字体文件。如果字体未加载，尝试重新安装扩展。某些系统字体配置可能覆盖扩展样式，属于正常情况。</p>
+    </div>
+    <div class="faq-item">
+      <h4>如何卸载？</h4>
+      <p>在 chrome://extensions 找到「Style for Hacker News」，点击「移除」即可。卸载后 HN 恢复原始样式，不留任何残留。</p>
+    </div>
+
+    <hr class="rule">
+
+    <p style="font-size:13px;color:var(--text-muted)">版本 1.0.0</p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>Style for Hacker News</span>
+  <span><a href="#home">首页</a> &middot; <a href="#privacy">隐私</a> &middot; <a href="#support">支持</a></span>
+</footer>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.tab-panel');
+
+  function activate(name) {
+    var i;
+    for (i = 0; i < tabs.length; i++) {
+      var isActive = tabs[i].getAttribute('data-tab') === name;
+      tabs[i].classList.toggle('active', isActive);
+    }
+    var panel = document.getElementById('panel-' + name);
+    if (panel) {
+      for (i = 0; i < panels.length; i++) {
+        panels[i].classList.remove('active');
+      }
+      panel.classList.add('active');
+    }
+  }
+
+  function onHashChange() {
+    var hash = window.location.hash.replace('#', '') || 'home';
+    // Only activate known tabs; ignore unknown hashes
+    var known = ['home', 'privacy', 'support'];
+    if (known.indexOf(hash) === -1) {
+      hash = 'home';
+      window.location.hash = 'home';
+      return;
+    }
+    activate(hash);
+  }
+
+  window.addEventListener('hashchange', onHashChange);
+
+  // Initial activation
+  var initialHash = window.location.hash.replace('#', '');
+  if (!initialHash) {
+    window.location.hash = 'home';
+  }
+  onHashChange();
+})();
+</script>
+
+</body>
+</html>

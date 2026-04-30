@@ -1,164 +1,237 @@
 /* ==========================================================================
-   Style for Hacker News - Enhanced Readability
-   A Chrome extension to improve HN's typography, spacing, and visual comfort.
+   Style for Hacker News — Reading & Hierarchy
    ========================================================================== */
 
-/* === Global Base Styles === */
+:root {
+  --text-primary: #1c1a17;
+  --text-secondary: #4a4642;
+  --text-meta: #7a7570;
+  --text-faint: #a09890;
+  --bg-cream: #f6f6ef;
+  --accent: #ff6600;
+  --accent-dim: #e85d00;
+  --rule-light: #e8e3db;
+  --rule-subtle: #efece6;
+  --thread-depth-1: oklch(0.84 0.012 80);
+  --thread-depth-2: oklch(0.85 0.010 80);
+  --thread-depth-3: oklch(0.86 0.008 80);
+  --thread-depth-4: oklch(0.87 0.006 80);
+  --thread-depth-5: oklch(0.88 0.004 80);
+}
+
+/* === Global === */
 
 body {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'LXGWZhenKaiGB-Regular', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-size: 15px !important;
-  line-height: 1.5 !important;
-  color: #666666 !important;
+  line-height: 1.6 !important;
+  color: var(--text-primary) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 td {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
   font-size: 15px !important;
-  color: #666666 !important;
+  color: var(--text-primary) !important;
 }
-
-/* === Main Container === */
 
 #hnmain {
   min-width: 880px !important;
 }
 
-/* === Navigation Bar (.pagetop) === */
+/* === Navigation === */
 
 .pagetop {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 14px !important;
-  color: #222222 !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  color: var(--text-secondary) !important;
   line-height: normal !important;
 }
 
+.pagetop a:link,
 .pagetop a:visited {
-  color: #000000 !important;
+  color: var(--text-secondary) !important;
 }
 
 .topsel a:link,
 .topsel a:visited {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 
 .hnname {
   margin-left: 2px !important;
   margin-right: 8px !important;
+  font-weight: 600 !important;
 }
 
-/* === Post List - Titles === */
+/* === Post List === */
+
+.rank {
+  font-size: 14px !important;
+  color: var(--text-faint) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.votearrow {
+  width: 12px !important;
+  height: 12px !important;
+  background-size: 12px !important;
+  margin: 3px 4px 6px !important;
+  opacity: 0.55;
+}
 
 .title {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 16px !important;
-  line-height: 1.4 !important;
-  color: #666666 !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  color: var(--text-primary) !important;
 }
 
 .titleline > a {
   font-weight: 500 !important;
-  color: #1a1a1a !important;
+  color: var(--text-primary) !important;
 }
 
 .titleline > a:visited {
-  color: #999999 !important;
+  color: var(--text-faint) !important;
 }
 
-/* Source site label */
 .sitebit.comhead,
 .sitestr {
-  font-size: 13px !important;
+  font-size: 12px !important;
+  color: var(--text-faint) !important;
 }
 
-/* === Post List - Metadata (.subtext) === */
-
+/* Post metadata */
 .subtext {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 13px !important;
-  color: #888888 !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  color: var(--text-meta) !important;
 }
 
 .subtext td {
-  font-size: 13px !important;
+  font-size: 12px !important;
   padding-top: 2px !important;
+  color: var(--text-meta) !important;
 }
 
 .subtext a:link,
 .subtext a:visited {
-  color: #888888 !important;
+  color: var(--text-meta) !important;
 }
 
 .subtext a:hover {
-  color: #ff6600 !important;
+  color: var(--accent) !important;
   text-decoration: underline !important;
 }
 
-/* Score emphasis */
 .subtext .score {
-  color: #777777 !important;
+  color: var(--text-secondary) !important;
   font-weight: 500 !important;
 }
 
-/* === Light Card Separator for Posts === */
-
+/* Post row separator */
 table.itemlist {
   border-collapse: collapse !important;
 }
 
 tr.athing td {
   padding-top: 10px !important;
-  border-top: 1px solid #e8e8e8 !important;
+  border-top: 1px solid var(--rule-light) !important;
 }
 
-/* First post - no top border (header already provides separation) */
 tr.athing:first-child td {
   border-top: none !important;
 }
 
-/* Post Spacing (spacer rows) */
 tr.spacer {
-  height: 16px !important;
-}
-
-/* === Rank Numbers === */
-
-.rank {
-  font-size: 15px !important;
-  color: #999999 !important;
-}
-
-/* === Vote Arrows === */
-
-.votearrow {
-  width: 12px !important;
   height: 12px !important;
-  background-size: 12px !important;
-  margin: 4px 3px 6px !important;
+}
+
+/* "More" link */
+a.morelink {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
 }
 
 /* === Links === */
 
 a:link {
-  color: #1a1a1a !important;
+  color: var(--text-primary) !important;
   text-decoration: none !important;
 }
 
 a:visited {
-  color: #888888 !important;
+  color: var(--text-faint) !important;
   text-decoration: none !important;
 }
 
-/* === Comment System === */
+/* ==========================================================================
+   Comments — Hierarchy is everything
+   ========================================================================== */
 
+/* Top-level comment separator — a rule between root-level discussion threads.
+   td.ind is nested inside a sub-table, so we use descendant (not child) combinator. */
+.comment-tree > tbody > tr.athing.comtr:has(td.ind img[src$='s.gif'][width='0']) {
+  border-top: 1px solid var(--rule-subtle) !important;
+}
+
+.comment-tree > tbody > tr.athing.comtr:first-child {
+  border-top: none !important;
+}
+
+/* Thread depth lines — left border on td.default, keyed to indent img width.
+   tr.comtr contains a nested table; td.ind and td.default are descendants, not direct children. */
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment {
+  border-left: 2px solid var(--thread-depth-1) !important;
+  padding-left: 14px !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment {
+  border-left: 2px solid var(--thread-depth-2) !important;
+  padding-left: 14px !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment {
+  border-left: 2px solid var(--thread-depth-3) !important;
+  padding-left: 14px !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment {
+  border-left: 2px solid var(--thread-depth-4) !important;
+  padding-left: 14px !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Depth 5+ — one shared color */
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='200']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='240']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='280']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment,
+.comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment {
+  border-left: 2px solid var(--thread-depth-5) !important;
+  padding-left: 14px !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Comment body */
 .comment {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
   font-size: 15px !important;
-  line-height: 1.6 !important;
+  line-height: 1.65 !important;
   max-width: 1215px;
+  overflow-wrap: anywhere !important;
 }
 
 .comment a:link,
@@ -166,110 +239,108 @@ a:visited {
   text-decoration: underline !important;
 }
 
+/* Comment header */
 .comhead {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 13px !important;
-  color: #888888 !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  color: var(--text-meta) !important;
+  margin-bottom: 6px !important;
+  display: block !important;
 }
 
 .comhead a:link,
 .comhead a:visited {
-  color: #888888 !important;
+  color: var(--text-meta) !important;
 }
 
 .comhead a:hover {
-  color: #ff6600 !important;
+  color: var(--accent) !important;
   text-decoration: underline !important;
 }
 
-/* Comment paragraph spacing */
+/* Paragraph spacing within comment body */
 .default p {
-  margin-top: 12px !important;
-  margin-bottom: 0px !important;
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
 }
 
-/* Comment text color classes - preserve hierarchy */
-.c00, .c00 a:link { color: #1a1a1a !important; }
-.c5a, .c5a a:link, .c5a a:visited { color: #5a5a5a !important; }
-.c73, .c73 a:link, .c73 a:visited { color: #737373 !important; }
-.c82, .c82 a:link, .c82 a:visited { color: #828282 !important; }
-.c88, .c88 a:link, .c88 a:visited { color: #888888 !important; }
-.c9c, .c9c a:link, .c9c a:visited { color: #9c9c9c !important; }
-.cae, .cae a:link, .cae a:visited { color: #aeaeae !important; }
-.cbe, .cbe a:link, .cbe a:visited { color: #bebebe !important; }
-.cce, .cce a:link, .cce a:visited { color: #cecece !important; }
-.cdd, .cdd a:link, .cdd a:visited { color: #dddddd !important; }
+/* Faded comments (downvoted / flagged) — preserve HN's signal */
+.c00, .c00 a:link { color: var(--text-primary) !important; }
+.c5a, .c5a a:link, .c5a a:visited { color: #5a5550 !important; }
+.c73, .c73 a:link, .c73 a:visited { color: #736d67 !important; }
+.c82, .c82 a:link, .c82 a:visited { color: #827b74 !important; }
+.c88, .c88 a:link, .c88 a:visited { color: #88827b !important; }
+.c9c, .c9c a:link, .c9c a:visited { color: #9c9690 !important; }
+.cae, .cae a:link, .cae a:visited { color: #aea9a5 !important; }
+.cbe, .cbe a:link, .cbe a:visited { color: #bebbb8 !important; }
+.cce, .cce a:link, .cce a:visited { color: #ceccca !important; }
+.cdd, .cdd a:link, .cdd a:visited { color: #dddcdb !important; }
 
 /* Code blocks */
 pre {
   overflow: auto !important;
-  padding: 8px 12px !important;
+  padding: 10px 14px !important;
   white-space: pre-wrap !important;
   overflow-wrap: anywhere !important;
-  background: #f5f5f5 !important;
+  background: var(--rule-subtle) !important;
   border-radius: 4px !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
+  font-family: 'MapleMonoNL-Regular', 'SF Mono', 'Fira Code', monospace !important;
 }
 
-/* === Default / Admin Classes === */
+/* === Admin / Default utility classes === */
 
 .default {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
   font-size: 15px !important;
-  color: #666666 !important;
+  color: var(--text-primary) !important;
 }
 
 .admin {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
   font-size: 13px !important;
-  color: #000000 !important;
+  color: var(--text-primary) !important;
 }
 
 .admin td {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
   font-size: 13px !important;
-  color: #000000 !important;
+  color: var(--text-primary) !important;
 }
 
 /* === Footer === */
 
 .yclinks {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
   font-size: 12px !important;
-  color: #888888 !important;
+  color: var(--text-meta) !important;
 }
 
 .hnmore a:link,
 .hnmore a:visited {
-  color: #888888 !important;
+  color: var(--text-meta) !important;
 }
 
 /* === Form Elements === */
 
 input {
-  font-family: 'LXGWZhenKaiGB-Regular', monospace !important;
+  font-family: 'MapleMonoNL-Regular', 'SF Mono', monospace !important;
   font-size: 14px !important;
 }
 
 input[type='submit'] {
-  font-family: 'LXGWZhenKaiGB-Regular', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: inherit !important;
 }
 
 textarea {
-  font-family: 'LXGWZhenKaiGB-Regular', monospace !important;
+  font-family: 'MapleMonoNL-Regular', 'SF Mono', monospace !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
 }
 
-/* === "More" link at bottom of pages === */
-
-a.morelink {
-  font-size: 15px !important;
-  font-weight: 500 !important;
-}
-
-/* === Mobile Device Overrides === */
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
 
 @media only screen and (min-width: 300px) and (max-width: 750px) {
 
@@ -295,12 +366,9 @@ a.morelink {
     line-height: 1.45 !important;
   }
 
-  .subtext {
-    font-size: 14px !important;
-  }
-
+  .subtext,
   .subtext td {
-    font-size: 14px !important;
+    font-size: 13px !important;
   }
 
   .comment {
@@ -325,13 +393,12 @@ a.morelink {
   }
 
   .votearrow {
-    transform: scale(1.5, 1.5) !important;
+    transform: scale(1.4) !important;
     margin-right: 8px !important;
   }
 
   .votearrow.rotate180 {
-    -webkit-transform: rotate(180deg) scale(1.5, 1.5) !important;
-    transform: rotate(180deg) scale(1.5, 1.5) !important;
+    transform: rotate(180deg) scale(1.4) !important;
   }
 
   .votelinks {
@@ -350,80 +417,58 @@ a.morelink {
     width: 90% !important;
   }
 
-  tr.spacer {
-    height: 16px !important;
+  .rank {
+    font-size: 15px !important;
   }
 
-  .rank {
-    font-size: 16px !important;
+  tr.spacer {
+    height: 14px !important;
   }
 
   pre {
     font-size: 13px !important;
   }
 
-  /* Comment indentation - preserve mobile scaling */
-  table.comment-tree .comment a {
-    display: inline-block !important;
-    max-width: 220px !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
-    vertical-align: top !important;
+  /* Thinner thread lines on mobile */
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='40']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='80']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='120']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='160']) .comment {
+    border-left-width: 1.5px !important;
+    padding-left: 10px !important;
   }
 
-  img[src='s.gif'][width='40']  { width: 12px !important; }
-  img[src='s.gif'][width='80']  { width: 24px !important; }
-  img[src='s.gif'][width='120'] { width: 36px !important; }
-  img[src='s.gif'][width='160'] { width: 48px !important; }
-  img[src='s.gif'][width='200'] { width: 60px !important; }
-  img[src='s.gif'][width='240'] { width: 72px !important; }
-  img[src='s.gif'][width='280'] { width: 84px !important; }
-  img[src='s.gif'][width='320'] { width: 96px !important; }
-  img[src='s.gif'][width='360'] { width: 108px !important; }
-  img[src='s.gif'][width='400'] { width: 120px !important; }
-  img[src='s.gif'][width='440'] { width: 132px !important; }
-  img[src='s.gif'][width='480'] { width: 144px !important; }
-  img[src='s.gif'][width='520'] { width: 156px !important; }
-  img[src='s.gif'][width='560'] { width: 168px !important; }
-  img[src='s.gif'][width='600'] { width: 180px !important; }
-  img[src='s.gif'][width='640'] { width: 192px !important; }
-  img[src='s.gif'][width='680'] { width: 204px !important; }
-  img[src='s.gif'][width='720'] { width: 216px !important; }
-  img[src='s.gif'][width='760'] { width: 228px !important; }
-  img[src='s.gif'][width='800'] { width: 240px !important; }
-  img[src='s.gif'][width='840'] { width: 252px !important; }
-}
+  /* Deeper levels — hide thread lines on tight screens */
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='200']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='240']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='280']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='320']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='360']) .comment,
+  .comment-tree tr:has(td.ind img[src$='s.gif'][width='400']) .comment {
+    border-left: none !important;
+    padding-left: 6px !important;
+  }
 
-/* === Comment max-width responsive overrides === */
-
-@media only screen and (min-width: 300px) and (max-width: 389px) {
-  .comment { max-width: 270px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 390px) and (max-width: 509px) {
-  .comment { max-width: 350px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 510px) and (max-width: 599px) {
-  .comment { max-width: 460px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 600px) and (max-width: 689px) {
-  .comment { max-width: 540px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 690px) and (max-width: 809px) {
-  .comment { max-width: 620px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 810px) and (max-width: 899px) {
-  .comment { max-width: 730px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 900px) and (max-width: 1079px) {
-  .comment { max-width: 810px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 1080px) and (max-width: 1169px) {
-  .comment { max-width: 970px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 1170px) and (max-width: 1259px) {
-  .comment { max-width: 1050px !important; overflow: hidden !important; }
-}
-@media only screen and (min-width: 1260px) and (max-width: 1349px) {
-  .comment { max-width: 1130px !important; overflow: hidden !important; }
+  /* Reduced indent on mobile */
+  img[src$='s.gif'][width='40']  { width: 12px !important; }
+  img[src$='s.gif'][width='80']  { width: 24px !important; }
+  img[src$='s.gif'][width='120'] { width: 36px !important; }
+  img[src$='s.gif'][width='160'] { width: 48px !important; }
+  img[src$='s.gif'][width='200'] { width: 60px !important; }
+  img[src$='s.gif'][width='240'] { width: 72px !important; }
+  img[src$='s.gif'][width='280'] { width: 84px !important; }
+  img[src$='s.gif'][width='320'] { width: 96px !important; }
+  img[src$='s.gif'][width='360'] { width: 108px !important; }
+  img[src$='s.gif'][width='400'] { width: 120px !important; }
+  img[src$='s.gif'][width='440'] { width: 132px !important; }
+  img[src$='s.gif'][width='480'] { width: 144px !important; }
+  img[src$='s.gif'][width='520'] { width: 156px !important; }
+  img[src$='s.gif'][width='560'] { width: 168px !important; }
+  img[src$='s.gif'][width='600'] { width: 180px !important; }
+  img[src$='s.gif'][width='640'] { width: 192px !important; }
+  img[src$='s.gif'][width='680'] { width: 204px !important; }
+  img[src$='s.gif'][width='720'] { width: 216px !important; }
+  img[src$='s.gif'][width='760'] { width: 228px !important; }
+  img[src$='s.gif'][width='800'] { width: 240px !important; }
+  img[src$='s.gif'][width='840'] { width: 252px !important; }
 }
