@@ -3,6 +3,8 @@
    ========================================================================== */
 
 :root {
+  --hn-reader-font: 'LXGWZhenKaiGB-Regular', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --hn-mono-font: 'MapleMono', 'SF Mono', 'Fira Code', monospace;
   --text-primary: #1c1a17;
   --text-secondary: #4a4642;
   --text-meta: #7a7570;
@@ -22,7 +24,7 @@
 /* === Global === */
 
 body {
-  font-family: 'LXGWZhenKaiGB-Regular', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family: var(--hn-reader-font) !important;
   font-size: 15px !important;
   line-height: 1.6 !important;
   color: var(--text-primary) !important;
@@ -309,7 +311,7 @@ pre {
   border-radius: 4px !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
-  font-family: 'MapleMonoNL-Regular', 'SF Mono', 'Fira Code', monospace !important;
+  font-family: var(--hn-mono-font) !important;
 }
 
 /* === Admin / Default utility classes === */
@@ -347,7 +349,7 @@ pre {
 /* === Form Elements === */
 
 input {
-  font-family: 'MapleMonoNL-Regular', 'SF Mono', monospace !important;
+  font-family: var(--hn-mono-font) !important;
   font-size: 14px !important;
 }
 
@@ -356,7 +358,7 @@ input[type='submit'] {
 }
 
 textarea {
-  font-family: 'MapleMonoNL-Regular', 'SF Mono', monospace !important;
+  font-family: var(--hn-mono-font) !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
 }

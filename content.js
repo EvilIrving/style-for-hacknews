@@ -22,6 +22,27 @@ function injectFonts() {
 function addFontFace() {
   const fontFaces = `
     @font-face {
+      font-family: 'Amarna';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('${chrome.runtime.getURL("fonts/Amarna-VariableFont_wght.ttf")}') format('truetype');
+    }
+    @font-face {
+      font-family: 'Cause';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('${chrome.runtime.getURL("fonts/Cause-VariableFont_wght.ttf")}') format('truetype');
+    }
+    @font-face {
+      font-family: 'GoogleSansFlex';
+      font-style: normal;
+      font-weight: 1 1000;
+      font-display: swap;
+      src: url('${chrome.runtime.getURL("fonts/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf")}') format('truetype');
+    }
+    @font-face {
       font-family: 'LXGWZhenKaiGB-Regular';
       font-style: normal;
       font-weight: 400 600;
@@ -29,25 +50,32 @@ function addFontFace() {
       src: url('${chrome.runtime.getURL("fonts/LXGWZhenKaiGB-Regular.ttf")}') format('truetype');
     }
     @font-face {
-      font-family: 'MapleMonoNL-ExtraLight';
+      font-family: 'MapleMono';
       font-style: normal;
-      font-weight: 400;
+      font-weight: 100 900;
       font-display: swap;
-      src: url('${chrome.runtime.getURL("fonts/MapleMonoNL-ExtraLight.woff2")}') format('woff2');
+      src: url('${chrome.runtime.getURL("fonts/MapleMono[wght].ttf")}') format('truetype');
     }
     @font-face {
-      font-family: 'MapleMonoNL-Light';
+      font-family: 'Outfit';
       font-style: normal;
-      font-weight: 400;
+      font-weight: 100 900;
       font-display: swap;
-      src: url('${chrome.runtime.getURL("fonts/MapleMonoNL-Light.woff2")}') format('woff2');
+      src: url('${chrome.runtime.getURL("fonts/Outfit-VariableFont_wght.ttf")}') format('truetype');
     }
     @font-face {
-      font-family: 'MapleMonoNL-Regular';
+      font-family: 'Oxygen';
       font-style: normal;
       font-weight: 400;
       font-display: swap;
-      src: url('${chrome.runtime.getURL("fonts/MapleMonoNL-Regular.woff2")}') format('woff2');
+      src: url('${chrome.runtime.getURL("fonts/Oxygen-Regular.ttf")}') format('truetype');
+    }
+    @font-face {
+      font-family: 'PlayfairDisplay';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url('${chrome.runtime.getURL("fonts/PlayfairDisplay-VariableFont_wght.ttf")}') format('truetype');
     }
   `;
 
@@ -62,9 +90,62 @@ injectFonts();
 class SubtextToggle {
   constructor() {
     this.storageKey = 'hnSubtextIsHidden';
+    this.fontStorageKey = 'hnReaderFont';
+    this.fonts = [
+      {
+        id: 'lxgw-zhengkai',
+        label: '霞鹜',
+        family: "'LXGWZhenKaiGB-Regular', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', 'Fira Code', monospace"
+      },
+      {
+        id: 'maple-mono',
+        label: 'Maple',
+        family: "'MapleMono', 'LXGWZhenKaiGB-Regular', system-ui, sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'google-sans-flex',
+        label: 'Google',
+        family: "'GoogleSansFlex', 'LXGWZhenKaiGB-Regular', system-ui, sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'outfit',
+        label: 'Outfit',
+        family: "'Outfit', 'LXGWZhenKaiGB-Regular', system-ui, sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'oxygen',
+        label: 'Oxygen',
+        family: "'Oxygen', 'LXGWZhenKaiGB-Regular', system-ui, sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'cause',
+        label: 'Cause',
+        family: "'Cause', 'LXGWZhenKaiGB-Regular', system-ui, sans-serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'playfair-display',
+        label: 'Playfair',
+        family: "'PlayfairDisplay', 'LXGWZhenKaiGB-Regular', Georgia, serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      },
+      {
+        id: 'amarna',
+        label: 'Amarna',
+        family: "'Amarna', 'LXGWZhenKaiGB-Regular', Georgia, serif",
+        monoFamily: "'MapleMono', 'SF Mono', monospace"
+      }
+    ];
     this.isHidden = true; // 默认隐藏状态
+    this.currentFontIndex = 0;
     this.panel = null;
     this.button = null;
+    this.fontButton = null;
     this.init();
   }
 
@@ -79,6 +160,8 @@ class SubtextToggle {
 
   async setup() {
     await this.loadState();
+
+    this.applyFont();
 
     // 初始隐藏所有.subtext元素
     this.toggleSubtextVisibility(this.isHidden);
@@ -99,11 +182,14 @@ class SubtextToggle {
       if (typeof result[this.storageKey] === 'boolean') {
         this.isHidden = result[this.storageKey];
       }
+      const fontResult = await chrome.storage.local.get(this.fontStorageKey);
+      this.setFontIndex(fontResult[this.fontStorageKey]);
     } catch (error) {
       const savedState = window.localStorage.getItem(this.storageKey);
       if (savedState !== null) {
         this.isHidden = savedState === 'true';
       }
+      this.setFontIndex(window.localStorage.getItem(this.fontStorageKey));
     }
   }
 
@@ -115,6 +201,19 @@ class SubtextToggle {
       await chrome.storage.local.set({ [this.storageKey]: this.isHidden });
     } catch (error) {
       window.localStorage.setItem(this.storageKey, String(this.isHidden));
+    }
+  }
+
+  /**
+   * 保存当前字体
+   */
+  async saveFontState() {
+    const currentFont = this.fonts[this.currentFontIndex];
+
+    try {
+      await chrome.storage.local.set({ [this.fontStorageKey]: currentFont.id });
+    } catch (error) {
+      window.localStorage.setItem(this.fontStorageKey, currentFont.id);
     }
   }
 
@@ -131,13 +230,50 @@ class SubtextToggle {
     this.button.id = 'hn-subtext-toggle-button';
     this.button.textContent = this.isHidden ? '显示信息' : '隐藏信息';
     this.button.title = '点击切换信息显示状态';
+
+    // 创建字体切换按钮
+    this.fontButton = document.createElement('button');
+    this.fontButton.id = 'hn-font-toggle-button';
+    this.fontButton.title = '点击切换页面字体';
+    this.updateFontButtonText();
     
     // 添加事件监听
     this.button.addEventListener('click', () => this.toggleState());
+    this.fontButton.addEventListener('click', () => this.toggleFont());
     
     // 组装面板
     this.panel.appendChild(this.button);
+    this.panel.appendChild(this.fontButton);
     document.body.appendChild(this.panel);
+  }
+
+  /**
+   * 根据保存值设置字体索引
+   * @param {string} fontId - 字体标识
+   */
+  setFontIndex(fontId) {
+    const savedIndex = this.fonts.findIndex((font) => font.id === fontId);
+    this.currentFontIndex = savedIndex >= 0 ? savedIndex : 0;
+  }
+
+  /**
+   * 应用当前字体到页面
+   */
+  applyFont() {
+    const currentFont = this.fonts[this.currentFontIndex];
+
+    document.documentElement.style.setProperty('--hn-reader-font', currentFont.family);
+    document.documentElement.style.setProperty('--hn-mono-font', currentFont.monoFamily);
+  }
+
+  /**
+   * 切换页面字体
+   */
+  toggleFont() {
+    this.currentFontIndex = (this.currentFontIndex + 1) % this.fonts.length;
+    this.applyFont();
+    this.updateFontButtonText();
+    this.saveFontState();
   }
 
   /**
@@ -173,6 +309,14 @@ class SubtextToggle {
    */
   updateButtonText() {
     this.button.textContent = this.isHidden ? '显示信息' : '隐藏信息';
+  }
+
+  /**
+   * 更新字体按钮文本
+   */
+  updateFontButtonText() {
+    const currentFont = this.fonts[this.currentFontIndex];
+    this.fontButton.textContent = `字体：${currentFont.label}`;
   }
 
   /**
