@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evilirving.github.io/style-for-hacknews/sitemap.xml

@@ -45,14 +45,14 @@ All three must be checked:
 
 ## Official URLs
 - Associated website: None
-- Homepage URL (首页网址, max 2048 chars): https://github.com/EvilIrving/style-for-hacknews
-- Support page URL (支持信息页面网址, max 2048 chars): https://github.com/EvilIrving/style-for-hacknews/issues
+- Homepage URL (首页网址, max 2048 chars): https://evilirving.github.io/style-for-hacknews/
+- Support page URL (支持信息页面网址, max 2048 chars): https://evilirving.github.io/style-for-hacknews/support.html
 
 ## Adult Content
 - Contains adult content? No
 
 ## Privacy Policy (隐私权政策)
-- URL (max 2048 chars): <host `store/privacy.html` at a public HTTPS URL and paste the link here>
+- URL (max 2048 chars): https://evilirving.github.io/style-for-hacknews/privacy.html
 
 ## Product Support
 - Enable product support? Off

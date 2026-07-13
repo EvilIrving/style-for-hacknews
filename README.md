@@ -1,40 +1,21 @@
 # Style for Hacker News
 
-A Chrome extension that improves Hacker News readability with refined typography, optimized spacing, and a cleaner layout. Available in English, 中文, 日本語, and 한국어.
+Style for Hacker News is a local-first readability extension for `news.ycombinator.com`: refined typography, calmer spacing, visible comment depth and a small control panel for local preferences.
 
-[中文版本](README.zh_CN.md)
+[Website](https://evilirving.github.io/style-for-hacknews/) · [Install](https://evilirving.github.io/style-for-hacknews/install.html) · [Privacy](https://evilirving.github.io/style-for-hacknews/privacy.html) · [Support](https://github.com/EvilIrving/style-for-hacknews/issues)
 
-## Features
+## Install
 
-- **8 variable fonts** — Cycle through MapleMono CN, LXGW ZhenKai, Google Sans Flex, Commit Mono, Geist, Geist Mono, MiSans, and Mona Sans with one click
-- **Subtext toggle** — Show or hide article metadata (points, comment counts, timestamps) to reduce visual noise
-- **Comment thread indicators** — Visual depth markers make nested discussions instantly readable
-- **Persistent preferences** — Font choice and visibility settings saved locally and restored across visits
-- **Four languages** — UI labels adapt to English, Simplified Chinese, Japanese, or Korean
+Download the matching browser package from [GitHub Releases](https://github.com/EvilIrving/style-for-hacknews/releases), unzip it, then load the folder through the browser’s extension management page. See the [installation guide](https://evilirving.github.io/style-for-hacknews/install.html) for browser-specific steps.
 
-## Usage
+## Development and release
 
-1. Visit [news.ycombinator.com](https://news.ycombinator.com)
-2. Use the floating control panel in the bottom-right corner to switch fonts, toggle metadata, or change the UI language
+`npm run validate` checks the MV3 manifest, referenced files and all locales. `npm run package` produces Chrome, Edge and Firefox archives. `npm run release` also inspects the generated ZIPs for correct manifests and accidental source-file leakage. CI runs that same command for main and pull requests; a `v*` tag creates the GitHub Release.
 
-## Installation
+## Privacy and scope
 
-1. Open `chrome://extensions/` in Chrome
-2. Enable **Developer mode**
-3. Click **Load unpacked** and select this project folder
-4. Visit Hacker News to test
-
-## Development
-
-The extension runs as a content script on `news.ycombinator.com`. Key files:
-
-| File | Purpose |
-|---|---|
-| `content.js` | Control panel, toggle logic, font switching, i18n |
-| `content.css` | Typography overrides, comment threading, layout improvements |
-| `control-panel.css` | Floating panel styles |
-| `_locales/` | UI strings for en, zh_CN, ja, ko |
+The extension runs only on Hacker News, stores font and metadata preferences locally, and does not collect or transmit user data. It is independent and is not affiliated with Hacker News or Y Combinator.
 
 ## License
 
-MIT
+[MIT](./LICENSE)
