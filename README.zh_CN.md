@@ -1,40 +1,21 @@
-# Hacker News 样式优化
+# Style for Hacker News
 
-一个提升 Hacker News 可读性的 Chrome 扩展，通过精致的字体、优化的间距和更清晰的布局改善阅读体验。支持英文、中文、日文和韩文界面。
+让 Hacker News 更易读：更舒适的排版、更清晰的评论层级，以及可保存的阅读偏好。
 
-[English version](README.md)
+[English](README.md) · [安装说明](https://evilirving.github.io/style-for-hacknews/install.html) · [隐私说明](https://evilirving.github.io/style-for-hacknews/privacy.html) · [问题反馈](https://github.com/EvilIrving/style-for-hacknews/issues)
 
-## 功能
+## 使用
 
-- **8 款可变字体** — 一键循环切换 MapleMono CN、霞鹜臻楷、Google Sans Flex、Commit Mono、Geist、Geist Mono、MiSans 和 Mona Sans
-- **元信息切换** — 显示或隐藏文章元数据（积分、评论数、时间戳），减少视觉干扰
-- **评论线程指示器** — 可视化深度标记，让嵌套讨论一目了然
-- **偏好持久化** — 字体选择和可见性设置本地保存，跨会话保留
-- **四语言支持** — 界面标签适配英文、简体中文、日文和韩文
-
-## 使用方法
-
-1. 访问 [news.ycombinator.com](https://news.ycombinator.com)
-2. 使用右下角浮动控制面板切换字体、元信息显示或界面语言
+安装后正常打开 Hacker News，即可使用阅读控制面板调整字体和信息显示方式。你的选择会保存在浏览器中，方便下次继续使用。
 
 ## 安装
 
-1. 在 Chrome 中打开 `chrome://extensions/`
-2. 启用**开发者模式**
-3. 点击**加载已解压的扩展程序**，选择此项目文件夹
-4. 访问 Hacker News 测试
+在 [安装包页面](https://github.com/EvilIrving/style-for-hacknews/releases) 下载适合浏览器的版本，并按照[安装说明](https://evilirving.github.io/style-for-hacknews/install.html)完成安装。
 
-## 技术说明
+## 隐私与关系说明
 
-扩展以内容脚本形式运行于 `news.ycombinator.com`。核心文件：
-
-| 文件 | 用途 |
-|---|---|
-| `content.js` | 控制面板、切换逻辑、字体切换、国际化 |
-| `content.css` | 字体覆盖、评论线程、布局优化 |
-| `control-panel.css` | 浮动面板样式 |
-| `_locales/` | 英、简中、日、韩四种语言的界面字符串 |
+扩展只用于改善 Hacker News 的阅读体验，不收集、出售或传输个人信息。它是独立项目，与 Hacker News 或 Y Combinator 无隶属、赞助或背书关系。
 
 ## 许可证
 
-MIT
+[MIT](./LICENSE)
