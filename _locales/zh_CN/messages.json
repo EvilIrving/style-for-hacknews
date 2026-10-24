@@ -3,19 +3,19 @@
     "message": "Hacker News 样式优化"
   },
   "extensionDescription": {
-    "message": "通过更好的字体、间距和布局提升 Hacker News 的可读性与视觉舒适度。"
+    "message": "优化 Hacker News 的字体、字距与排版间距，改善阅读体验。"
   },
   "showInfoButton": {
-    "message": "显示信息"
+    "message": "显示帖子信息"
   },
   "hideInfoButton": {
-    "message": "隐藏信息"
+    "message": "隐藏帖子信息"
   },
   "toggleInfoTitle": {
-    "message": "切换文章元信息显示状态"
+    "message": "显示或隐藏帖子的作者、得分与时间等信息"
   },
   "toggleFontTitle": {
-    "message": "切换页面字体"
+    "message": "切换网页字体"
   },
   "fontButtonLabel": {
     "message": "字体：$FONT$",

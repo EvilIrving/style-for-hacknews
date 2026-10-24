@@ -106,10 +106,10 @@ const languageMessages = {
     languageButtonTitle: 'Switch language'
   },
   zh: {
-    showInfoButton: '显示信息',
-    hideInfoButton: '隐藏信息',
-    toggleInfoTitle: '切换文章元信息显示状态',
-    toggleFontTitle: '切换页面字体',
+    showInfoButton: '显示帖子信息',
+    hideInfoButton: '隐藏帖子信息',
+    toggleInfoTitle: '显示或隐藏帖子的作者、得分与时间等信息',
+    toggleFontTitle: '切换网页字体',
     fontButtonLabel: '字体：$1',
     languageButtonTitle: '切换语言'
   },
